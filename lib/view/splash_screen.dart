@@ -9,16 +9,16 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
-
   // Identifies the widget/screen lifecycle. initState is called when the widget/screen is just created
   @override
   void initState() {
-
     // Delay/Sleep for 2 seconds and then go to HomeScree
-    Future.delayed(Duration(seconds: 2), 
-    () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()))
-
+    Future.delayed(
+      Duration(seconds: 2),
+      () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => HomeScreen()),
+      ),
     );
     super.initState();
   }
@@ -32,11 +32,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Icon(Icons.flutter_dash, size: 100,),
-      ),
-    );
+    return Scaffold(body: Center(child: Icon(Icons.flutter_dash, size: 100)));
   }
 }
-

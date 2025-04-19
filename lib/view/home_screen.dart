@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_test/controller/flower_list_controller.dart';
 import 'package:flutter_application_test/model/flower_model.dart';
+import 'package:flutter_application_test/view/joke_screen.dart';
+import 'package:flutter_application_test/view/mobile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -8,7 +10,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   // Creates a list of flower objects/models statically (we usually get these by APIs)
   final List<FlowerModel> flowers = [
     FlowerModel(
@@ -44,24 +45,96 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text('Home Screen'),
         backgroundColor: Colors.orange,
       ),
-      body: ListView.builder(
-        itemCount: flowers.length,
-        itemBuilder:
-            (context, index) => ListTile(
-              title: Text(flowers[index].name),
-              leading: Checkbox(
-                value: flowers[index].isWatered,
-                onChanged: (value) {
-                  /* We want to refresh app state. SetState() does that. The widget must be stateful in order to use SetState()
-                  Without this, the check marks would not change. Try this without SetState() to see! */
-                  setState(() {
-                    flowers[index].isWatered = flowerListController
-                        .toggleFlowerWaterStatus(flowers[index].id, !value!);
-                  });
-                },
+      body: Stack(
+        children: [
+          ListView.builder(
+            itemCount: flowers.length,
+            itemBuilder:
+                (context, index) => Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 10,
+                  ),
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(color: Colors.orange, width: 4),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    title: Text(flowers[index].name),
+                    leading: Checkbox(
+                      value: flowers[index].isWatered,
+                      onChanged: (value) {
+                        /* We want to refresh app state. SetState() does that. The widget must be stateful in order to use SetState()
+                        Without this, the check marks would not change. Try this without SetState() to see! */
+                        setState(() {
+                          flowers[index].isWatered = flowerListController
+                              .toggleFlowerWaterStatus(
+                                flowers[index].id,
+                                !value!,
+                              );
+                        });
+                      },
+                    ),
+                    trailing: Image.asset(flowers[index].imagePath),
+                    minVerticalPadding: 10,
+                  ),
+                ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(20),
+                      backgroundColor: Colors.green,
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontStyle: FontStyle.normal,
+                      ),
+                    ),
+                    onPressed:
+                        () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => JokeScreen()),
+                        ),
+                    child: Text(
+                      'Go to joke screen',
+                      style: TextStyle(color: Colors.white, fontSize: 30),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(20),
+                      backgroundColor: Colors.green,
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontStyle: FontStyle.normal,
+                      ),
+                    ),
+                    onPressed:
+                        () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MobileScreen(),
+                          ),
+                        ),
+                    child: Text(
+                      'Go to mobile screen',
+                      style: TextStyle(color: Colors.white, fontSize: 30),
+                    ),
+                  ),
+                ],
               ),
-              trailing: Image.asset(flowers[index].imagePath),
             ),
+          ),
+        ],
       ),
     );
   }
