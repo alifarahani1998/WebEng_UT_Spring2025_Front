@@ -3,6 +3,7 @@ import 'package:flutter_application_test/controller/flower_list_controller.dart'
 import 'package:flutter_application_test/model/flower_model.dart';
 import 'package:flutter_application_test/view/joke_screen.dart';
 import 'package:flutter_application_test/view/mobile_screen.dart';
+import 'package:flutter_application_test/view/responsive/responsive_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -127,6 +128,29 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                     child: Text(
                       'Go to mobile screen',
+                      style: TextStyle(color: Colors.white, fontSize: 30),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(20),
+                      backgroundColor: Colors.green,
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontStyle: FontStyle.normal,
+                      ),
+                    ),
+                    onPressed:
+                        () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ResponsiveScreen(),
+                          ),
+                        ),
+                    child: Text(
+                      'Go to responsive screen',
                       style: TextStyle(color: Colors.white, fontSize: 30),
                     ),
                   ),

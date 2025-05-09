@@ -36,43 +36,60 @@ class _JokeScreenState extends State<JokeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              jokeText,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 30),
-            ),
-            SizedBox(height: 50),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(20),
-                backgroundColor: Colors.green,
-                textStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontStyle: FontStyle.normal,
+            Expanded(
+              flex: 70,
+              child: Container(
+                child: ListView(
+                  children: [
+                    Text(
+                      jokeText,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 28),
+                    ),
+                  ],
                 ),
               ),
-              onPressed: () {
-                getData();
-                setState(() {
-                  jokeText = jokeData.joke!;
-                });
-              },
-              child: Text(
-                'Tell me some joke!',
-                style: TextStyle(color: Colors.white, fontSize: 30),
+            ),
+            SizedBox(height: 20),
+            Expanded(
+              flex: 10,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.all(20),
+                  backgroundColor: Colors.green,
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontStyle: FontStyle.normal,
+                  ),
+                ),
+                onPressed: () async {
+                  await getData();
+                  setState(() {
+                    jokeText = jokeData.joke!;
+                  });
+                },
+                child: Text(
+                  'Tell me some joke!',
+                  style: TextStyle(color: Colors.white, fontSize: 30),
+                ),
               ),
             ),
-            SizedBox(height: 100),
-            InkWell(
-              onTap:
-                  () => setState(() {
-                    color1 = color2;
-                    color2 = color3;
-                    color3 = color1;
-                  }),
-              child: Container(height: 200, width: 200, color: color1),
+            SizedBox(height: 20),
+            Expanded(
+              flex: 20,
+              child: InkWell(
+                onTap:
+                    () => setState(() {
+                      // change color 1 with color 2
+                      color1 = color2;
+                      color2 = color3;
+                      color3 = color1;
+                    }),
+                child: Container(height: 200, width: 200, color: color1),
+              ),
             ),
+            SizedBox(height: 20),
           ],
         ),
       ),

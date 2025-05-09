@@ -1,4 +1,5 @@
-const String jokeUrl = 'https://v2.jokeapi.dev/joke/Programming?type=single';
+const String jokeUrl =
+    'https://v2.jokeapi.dev/joke/Programming?type=single&idRange=38';
 
 // Change below to use your own URL for post
 const String sendMobileUrl = "https://xyz.com/";
