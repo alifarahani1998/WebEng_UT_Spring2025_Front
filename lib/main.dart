@@ -1,59 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:weather_forecast/page1.dart';
-import 'package:weather_forecast/page2.dart';
-import 'package:weather_forecast/page3.dart';
-import 'package:weather_forecast/page5.dart';
-
+import 'package:flutter_customer_seller_panel/landing_page.dart';
 
 void main() {
-  runApp(MyApp(
-  ));
+  runApp(const MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
-
-
+  const MyApp({super.key});
 
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Weather App',
+      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'iran_sans',
-        primarySwatch: Colors.blue,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: HomePage(),
-    );
-  }
-}
-
-
-
-class HomePage extends StatelessWidget {
-  final List<Map<String, Widget>> pages = [
-    {'title': Text('AnimatedContainer'), 'page': AnimatedContainerPage()},
-    {'title': Text('Explicit Animation'), 'page': BasicAnimationPage()},
-    {'title': Text('Hero Animation'), 'page': HeroPage1()},
-    {'title': Text('AnimatedSwitcher'), 'page': AnimatedSwitcherPage()},
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Flutter Animations Workshop')),
-      body: ListView(
-        children: pages.map((item) {
-          return ListTile(
-            title: item['title'],
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => item['page']!),
-            ),
-          );
-        }).toList(),
-      ),
+      home: LandingPage(),
     );
   }
 }
