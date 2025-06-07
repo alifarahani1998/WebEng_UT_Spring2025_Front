@@ -1,40 +1,44 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_test/view/splash_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_forecast/views/routes/route.dart';
+import 'blocs/weather/weather_bloc.dart';
 
 
-// The start point of each app
 void main() {
-
-  // runApp creates the widget tree (initializes the app layout)
-  runApp(MyApp());
+  runApp(MyApp(
+    appRouter: AppRouter(),
+    connectivity: Connectivity(),
+  ));
 }
 
+
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
+  final AppRouter appRouter;
+  final Connectivity connectivity;
+
+  MyApp({required this.appRouter, required this.connectivity});
+
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<WeatherBloc>(create: (context) => WeatherBloc()),
+      ],
+      child: MaterialApp(
+        title: 'Weather App',
+        theme: ThemeData(
+          fontFamily: 'iran_sans',
+          primarySwatch: Colors.blue,
+        ),
+        onGenerateRoute: appRouter.onGenerateRote,
       ),
-      // The first route/screen of the application
-      home: SplashScreen(),
     );
   }
 }
+
+
+
+
