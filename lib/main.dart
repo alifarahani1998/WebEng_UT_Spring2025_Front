@@ -1,44 +1,59 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_forecast/views/routes/route.dart';
-import 'blocs/weather/weather_bloc.dart';
+import 'package:weather_forecast/page1.dart';
+import 'package:weather_forecast/page2.dart';
+import 'package:weather_forecast/page3.dart';
+import 'package:weather_forecast/page5.dart';
 
 
 void main() {
   runApp(MyApp(
-    appRouter: AppRouter(),
-    connectivity: Connectivity(),
   ));
 }
 
 
 class MyApp extends StatelessWidget {
 
-  final AppRouter appRouter;
-  final Connectivity connectivity;
 
-  MyApp({required this.appRouter, required this.connectivity});
 
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<WeatherBloc>(create: (context) => WeatherBloc()),
-      ],
-      child: MaterialApp(
-        title: 'Weather App',
-        theme: ThemeData(
-          fontFamily: 'iran_sans',
-          primarySwatch: Colors.blue,
-        ),
-        onGenerateRoute: appRouter.onGenerateRote,
+    return MaterialApp(
+      title: 'Weather App',
+      theme: ThemeData(
+        fontFamily: 'iran_sans',
+        primarySwatch: Colors.blue,
       ),
+      home: HomePage(),
     );
   }
 }
 
 
 
+class HomePage extends StatelessWidget {
+  final List<Map<String, Widget>> pages = [
+    {'title': Text('AnimatedContainer'), 'page': AnimatedContainerPage()},
+    {'title': Text('Explicit Animation'), 'page': BasicAnimationPage()},
+    {'title': Text('Hero Animation'), 'page': HeroPage1()},
+    {'title': Text('AnimatedSwitcher'), 'page': AnimatedSwitcherPage()},
+  ];
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Flutter Animations Workshop')),
+      body: ListView(
+        children: pages.map((item) {
+          return ListTile(
+            title: item['title'],
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => item['page']!),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
